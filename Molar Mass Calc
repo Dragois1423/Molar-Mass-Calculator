@@ -1,0 +1,123 @@
+import List
+import string
+
+class PeriodicT(object):
+    def __init__(self):
+        """
+        It creates a copy of the element.
+        """
+        Element = self
+    
+    def ReturnE(self):
+        """
+        Returns the element you inputted in.
+        """
+        return self
+
+
+    def RetrieveAN(self):
+        """
+        Returns the atomic number of the element that you wish to find.
+        To use, type in:
+        PeriodicT.RetrieveAN(element) 
+        
+        ^Remember to replace the word element with the actual element you want to insert.
+            
+        """
+        return List.AtomicN[self]
+
+
+    def CMM(self, other):
+        """
+        CMM = compare molar mass
+        It compares the molar mass of two elements. SO YOU MUST INSERT TWO ELEMENTS!
+        There are two outcomes:
+            a) first element larger than second element in molar mass
+            b) second element larger than first element in molar mass
+    
+        To use, type in:
+        PeriodicT.CMM(element, element) 
+        
+        ^Remember to replace the words element with the actual elements you want to insert.
+        AND to PUT quotation marks AROUND those elements!
+        """
+        assert(self != other), "The two elements are identical! Select two different elements"
+        
+        if self > other:
+            print(self + " is larger than " + other + " in molar mass")
+        else:
+            print(other + " is larger than " + self + " in molar mass")
+            
+        
+    def CAN(self, other):
+        """
+        CAN = compare atomic number
+        It compares the atomic of two elements.
+        There are two outcomes:
+            a) first element larger than second element in atomic number
+            b) second element larger than first element in atomic number
+    
+        To use, type in:
+        PeriodicT.CAN(element, element) 
+        
+        ^Remember to replace the words element with the actual elements you want to insert 
+        AND to PUT quotation marks AROUND those elements!
+        """   
+        assert(self != other), "The two elements are identical! Select two different elements"
+
+        try:
+            if List.AtomicN[self] > List.AtomicN[other]:
+                print(self + " is larger than " + other + " in atomic number")
+                print("Reason: " + self + " has an atomic number of " + str(List.AtomicN[self]) + ", whereas " + other + " has an atomic number of " + str(List.AtomicN[other]))
+            else:
+                print(other + " is larger than " + self + " in atomic number")
+                print("Reason: " + other + " has an atomic number of " + str(List.AtomicN[other]) + ", whereas " + self + " has an atomic number of " + str(List.AtomicN[self]))
+        except NameError:
+            print("Remember to put quotation marks around both elements!")
+
+            
+def MMC(compound):
+    """
+    MMC = molar mass calculator
+    You insert a compound with quotation marks (eg. hydrogen peroxide molecule would be written as "H2O2" )
+    and the calculator returns the molar mass for the compound.
+    
+    ^numbers behind each element are automatically assumed to be subscripts (eg. H2)
+    ^ The calculator will ask you directly what the coefficient is, so DO NOT INCLUDE THE COEFFICIENT OF THE COMPOUND!!!
+    
+    To use, type in:
+    MMC(compound)
+    ^Remember to replace the words compound with the actual compound you want to insert 
+    AND to PUT quotation marks AROUND the compound!
+    """
+    result = 0
+    coefficient = int(input("What is the coefficient of the compound? Insert a number greater than 0 "))
+    
+    
+    for letter in range(len(compound)):
+                
+
+        if compound[letter] in string.ascii_uppercase:
+            if compound[letter] is compound[-1]:
+                result += List.MolarM[compound[letter]]
+            elif compound[letter + 1] in string.ascii_uppercase:
+                result += List.MolarM[compound[letter]]
+                    
+            elif compound[letter + 1] in string.ascii_lowercase:
+                x = compound[letter] + compound[letter + 1]
+                if compound[letter + 1] is compound[-1]:
+                    result += List.MolarM[x]
+                elif compound[letter + 2] in string.ascii_uppercase:
+                    result += List.MolarM[x]
+                    
+                else:
+                    result += int(compound[letter + 2])* List.MolarM[x]
+                    
+            else:
+                result += int(compound[letter + 1]) * List.MolarM[compound[letter]]
+                
+        else:
+            result += 0
+            
+    result = coefficient * result
+    print(result)
